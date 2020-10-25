@@ -8,7 +8,7 @@ var isProduction = (env === 'prod')
 module.exports = {
   mode: isProduction ? 'production' : 'development',
   entry: {
-    'torch.js': './js/torch.js',
+    'lit.js': './js/lit.js',
     'base.css': './css/base.sass',
     'theme.css': './css/theme.sass'
   },

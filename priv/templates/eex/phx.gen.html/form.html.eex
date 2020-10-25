@@ -1,20 +1,27 @@
-<%%= form_for @changeset, @action, [multipart: true, id: "torch-form"], fn f -> %>
-  <fieldset class="torch-panel">
-    <legend>
-      <span>Details</span>
-    </legend>
-    <%%= if @changeset.action do %>
-      <p class="torch-form-error">Oops, something went wrong! Please check the errors below.</p>
-    <%% end %>
-  <%= for {label, input, error} <- inputs, input do %>
-    <div class="torch-form-group">
-      <%= label %>
-      <%= input %>
-      <%= error %>
+<% add_class = fn string, class -> String.replace(string, " %", ~s(, class: "#{class}" %)) end
+%><%%= form_for @changeset, @action, [multipart: true], fn f -> %>
+  <%%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
-  <% end %>
-    <div class="torch-submit-form">
-      <%%= submit "Submit", class: "torch-submit-button" %>
+  <%% end %>
+<%= for {label, input, error} <- inputs, input do %><%= if String.match?(input, ~r/checkbox/) do %>
+  <div class="mb-6">
+    <div class="flex items-center">
+      <%= add_class.(input, "form-checkbox") %>
+      <%= add_class.(label, "ml-2 cursor-pointer") %>
     </div>
-  </fieldset>
+    <%= error %>
+  </div>
+<% else %>
+  <div class="mb-6">
+    <%= label %>
+    <%= add_class.(input, "focus:border-blue-400 focus:ring-2 focus:ring-blue-200 focus:outline-none w-full text-base placeholder-gray-400 border border-gray-300 rounded py-1.5 px-3") %>
+    <%= error %>
+  </div>
+<% end %><% end %>
+  <div class="mt-8 mb-2">
+    <%%= submit "Save", class: "px-4 py-2 text-sm border border-transparent rounded bg-yellow-600 text-white hover:bg-yellow-500 focus:outline-none focus:border-yellow-600 focus:shadow-outline-yellow active:bg-yellow-600 transition duration-150 ease-in-out inline-flex items-center" %>
+    <%%= link "Back", to: Routes.<%= schema.route_helper %>_path(@conn, :index), class: "ml-2 px-4 py-2 text-sm border border-transparent rounded bg-gray-600 text-white hover:bg-gray-500 focus:outline-none focus:border-gray-600 focus:shadow-outline-gray active:bg-gray-600 transition duration-150 ease-in-out inline-flex items-center" %>
+  </div>
 <%% end %>

@@ -1,11 +1,11 @@
-section#torch-toolbar
-  .torch-container
+section#lit-toolbar
+  .lit-container
     = link "New <%= schema.human_singular %>", to: Routes.<%= schema.route_helper %>_path(@conn, :new)
-section#torch-index-content
-  .torch-container
-    section#torch-filters
+section#lit-index-content
+  .lit-container
+    section#lit-filters
       h3 Find <%= schema.human_plural %>
-      = form_tag @conn.request_path, method: :get, id: "torch-filters-form" do
+      = form_tag @conn.request_path, method: :get, id: "lit-filters-form" do
       <%= for {key, type} <- schema.attrs, type in [:string, :text] do %>
         .field
           label <%= Phoenix.Naming.humanize(Atom.to_string(key)) %>
@@ -28,10 +28,10 @@ section#torch-index-content
           = number_filter_select(:<%= schema.singular %>, :<%= key %>, @conn.params)
           = filter_number_input(:<%= schema.singular %>, :<%= key %>, @conn.params)
       <% end %>
-        button.torch-button type="submit"  Search
+        button.lit-button type="submit"  Search
         = link "Clear Filters", to: Routes.<%= schema.route_helper %>_path(@conn, :index)
 
-    section#torch-table
+    section#lit-table
       = if length(@<%= schema.plural %>) > 0 do
         table
           thead
@@ -47,10 +47,10 @@ section#torch-index-content
             <%= for {k, _} <- schema.attrs do %>
               td= <%= schema.singular %>.<%= k %>
             <% end %>
-              td.torch-actions
+              td.lit-actions
                 span= link "Show", to: Routes.<%= schema.route_helper %>_path(@conn, :show, <%= schema.singular %>)
                 span= link "Edit", to: Routes.<%= schema.route_helper %>_path(@conn, :edit, <%= schema.singular %>)
                 span= link "Delete", to: Routes.<%= schema.route_helper %>_path(@conn, :delete, <%= schema.singular %>), method: :delete, data: [confirm: "Are you sure?"]
-        = render Torch.PaginationView, "_pagination.html", assigns
+        = render Lit.PaginationView, "_pagination.html", assigns
       - else
-        p.torch-no-data No <%= schema.human_plural %> match your search.
+        p.lit-no-data No <%= schema.human_plural %> match your search.

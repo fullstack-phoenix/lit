@@ -1,4 +1,4 @@
-import Torch.Helpers, only: [sort: 1, paginate: 4]
+import Lit.Helpers, only: [sort: 1, paginate: 4]
 import Filtrex.Type.Config
 
 alias <%= inspect schema.module %>

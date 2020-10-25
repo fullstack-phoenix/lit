@@ -1,18 +1,18 @@
-defmodule Torch.MixProject do
+defmodule Lit.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :torch,
-      version: "3.5.0",
+      app: :lit,
+      version: "0.1.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
-      name: "Torch",
+      name: "Lit",
       description: "Rapid admin generator for Phoenix",
-      source_url: "https://github.com/mojotech/torch",
-      homepage_url: "https://github.com/mojotech/torch",
-      test_paths: ["test/mix", "test/torch"],
+      source_url: "https://github.com/fullstack-phoenix/lit",
+      homepage_url: "https://github.com/fullstack-phoenix/lit",
+      test_paths: ["test/mix", "test/lit"],
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
@@ -57,10 +57,10 @@ defmodule Torch.MixProject do
 
   defp package do
     [
-      maintainers: ["MojoTech"],
+      maintainers: ["Andreas Eriksson"],
       licenses: ["MIT"],
       links: %{
-        "Github" => "https://github.com/mojotech/torch"
+        "Github" => "https://github.com/fullstack-phoenix/lit"
       },
       files: ~w(lib priv mix.exs README.md)
     ]

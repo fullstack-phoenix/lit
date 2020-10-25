@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Project-Id-Version: Torch\n"
+"Project-Id-Version: Lit\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
-"Language-Team: https://github.com/mojotech/torch\n"
+"Language-Team: https://github.com/mojotech/lit\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,62 +13,62 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: lib/torch/i18n/backend.ex:22
+#: lib/lit/i18n/backend.ex:22
 msgid "< Prev"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:23
+#: lib/lit/i18n/backend.ex:23
 msgid "Next >"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:11
+#: lib/lit/i18n/backend.ex:11
 msgid "Choose one"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:10
+#: lib/lit/i18n/backend.ex:10
 msgid "Equals"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:9
+#: lib/lit/i18n/backend.ex:9
 msgid "Contains"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:14
+#: lib/lit/i18n/backend.ex:14
 msgid "Greater Than"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:15
+#: lib/lit/i18n/backend.ex:15
 msgid "Greater Than Or Equal"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:16
+#: lib/lit/i18n/backend.ex:16
 msgid "Less Than"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:17
+#: lib/lit/i18n/backend.ex:17
 msgid "start"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:18
+#: lib/lit/i18n/backend.ex:18
 msgid "end"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:20
+#: lib/lit/i18n/backend.ex:20
 msgid "Select Start Date"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:21
+#: lib/lit/i18n/backend.ex:21
 msgid "Select End Date"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:13
+#: lib/lit/i18n/backend.ex:13
 msgid "After"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:12
+#: lib/lit/i18n/backend.ex:12
 msgid "Before"
 msgstr ""
 
-#: lib/torch/i18n/backend.ex:19
+#: lib/lit/i18n/backend.ex:19
 msgid "Select Date"
 msgstr ""

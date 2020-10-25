@@ -1,4 +1,4 @@
-defmodule Torch.Gettext do
+defmodule Lit.Gettext do
   @moduledoc """
   A module providing Internationalization with a gettext-based API.
   By using [Gettext](https://hexdocs.pm/gettext),
@@ -14,5 +14,5 @@ defmodule Torch.Gettext do
       dgettext("errors", "Here is the error message to translate")
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :torch
+  use Gettext, otp_app: :lit
 end

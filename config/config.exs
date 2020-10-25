@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure your application as:
 #
-#     config :torch, key: :value
+#     config :lit, key: :value
 #
 # and access this configuration in your application as:
 #
-#     Application.get_env(:torch, :key)
+#     Application.get_env(:lit, :key)
 #
 # You can also configure a 3rd-party app:
 #

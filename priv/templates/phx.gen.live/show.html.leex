@@ -1,0 +1,32 @@
+<%%= if @live_action in [:edit] do %>
+  <%%= live_modal @socket, <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>Live.FormComponent,
+    id: @<%= schema.singular %>.id,
+    title: @page_title,
+    action: @live_action,
+    <%= schema.singular %>: @<%= schema.singular %>,
+    return_to: Routes.<%= schema.route_helper %>_show_path(@socket, :show, @<%= schema.singular %>) %>
+<%% end %>
+
+<div class="flex flex-wrap">
+  <div class="w-full md:w-2/3">
+    <div class="bg-white rounded shadow">
+      <div class="flex items-center justify-between px-4 py-3 border-b">
+        <h5 class="text-lg font-medium text-gray-700">
+          Show <%= schema.human_singular %>
+        </h5>
+      </div>
+      <div class="px-4 py-3 text-gray-600 prose">
+<%= for {k, _} <- schema.attrs do %>
+        <div>
+          <strong><%= Phoenix.Naming.humanize(Atom.to_string(k)) %>:</strong>
+          <%%= @<%= schema.singular %>.<%= k %> %>
+        </div>
+<% end %>
+      </div>
+      <div class="px-4 py-3 border-t">
+        <%%= live_patch "Edit", to: Routes.<%= schema.route_helper %>_show_path(@socket, :edit, @<%= schema.singular %>), class: "px-4 py-2 text-sm font-medium text-blue-700 active:text-blue-700 hover:text-blue-400 focus:outline-none focus:shadow-outline-white transition duration-150 ease-in-out inline-flex items-center" %>
+        <%%= live_redirect "Back", to: Routes.<%= schema.route_helper %>_index_path(@socket, :index), class: "px-4 py-2 text-sm font-medium text-blue-700 active:text-blue-700 hover:text-blue-400 focus:outline-none focus:shadow-outline-white transition duration-150 ease-in-out inline-flex items-center" %>
+      </div>
+    </div>
+  </div>
+</div>

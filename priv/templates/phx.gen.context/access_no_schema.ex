@@ -1,10 +1,10 @@
 
-  import Torch.Helpers, only: [sort: 1, paginate: 4]
+  import Lit.Helpers, only: [sort: 1, paginate: 4]
   import Filtrex.Type.Config
 
   alias <%= inspect schema.module %>
 
-  @pagination [page_size: 15]
+  @pagination [page_size: 20]
   @pagination_distance 5
 
   @doc """

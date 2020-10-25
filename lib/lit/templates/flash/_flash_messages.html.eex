@@ -1,0 +1,7 @@
+<section id="lit-flash-messages">
+  <div class="lit-container">
+    <%= flash_message @conn, :error %>
+    <%= flash_message @conn, :info %>
+    <%= flash_message @conn, :success %>
+  </div>
+</section>

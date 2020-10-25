@@ -1,22 +1,25 @@
-<section id="torch-toolbar">
-  <div class="torch-container">
-    <%%= link "Edit", to: Routes.<%= schema.route_helper %>_path(@conn, :edit, @<%= schema.singular %>), class: "torch-button" %>
-    <%%= link "Back", to: Routes.<%= schema.route_helper %>_path(@conn, :index), class: "torch-button" %>
-  </div>
-</section>
-
-<section id="torch-header-and-content">
-  <div class="torch-container">
-    <div class="header">
-      <h3><%= String.capitalize(schema.human_singular) %> Details</h3>
+<div class="flex flex-wrap">
+  <div class="w-full md:w-2/3">
+    <div class="bg-white rounded shadow">
+      <div class="flex items-center justify-between px-4 py-3 border-b">
+        <h5 class="text-lg font-medium text-gray-700">
+          <%= String.capitalize(schema.human_singular) %> Details
+        </h5>
+      </div>
+      <div class="px-4 py-3 text-gray-600 prose">
+<%= for {k, _} <- schema.attrs do %>
+        <div>
+          <strong><%= Phoenix.Naming.humanize(Atom.to_string(k)) %>:</strong>
+          <%%= @<%= schema.singular %>.<%= k %> %>
+        </div>
+<% end %>
+      </div>
+      <div class="px-4 py-3 border-t">
+        <%%= link "Edit", to: Routes.<%= schema.route_helper %>_path(@conn, :edit, @<%= schema.singular %>), class: "px-4 py-2 text-sm font-medium text-blue-700 active:text-blue-700 hover:text-blue-400 focus:outline-none focus:shadow-outline-white transition duration-150 ease-in-out inline-flex items-center" %>
+        <%%= link "Back", to: Routes.<%= schema.route_helper %>_path(@conn, :index), class: "px-4 py-2 text-sm font-medium text-blue-700 active:text-blue-700 hover:text-blue-400 focus:outline-none focus:shadow-outline-white transition duration-150 ease-in-out inline-flex items-center" %>
+      </div>
     </div>
-    <ul>
-      <%= for {k, _} <- schema.attrs do %>
-        <li>
-          <div class="torch-show-label"><%= Phoenix.Naming.humanize(Atom.to_string(k)) %>:</div>
-          <div class="torch-show-data"><%%= @<%= schema.singular %>.<%= k %> %></div>
-        </li>
-      <% end %>
-    </ul>
   </div>
-</section>
+  <div class="w-full pt-4 md:pt-0 md:pl-4 md:w-1/3">
+  </div>
+</div>

@@ -1,15 +1,15 @@
-= form_for @changeset, @action, [multipart: true, id: "torch-form"], fn f ->
-  fieldset.torch-panel
+= form_for @changeset, @action, [multipart: true, id: "lit-form"], fn f ->
+  fieldset.lit-panel
     legend
       span Details
     = if @changeset.action do
-      p.torch-form-error Oops, something went wrong! Please check the errors below.
+      p.lit-form-error Oops, something went wrong! Please check the errors below.
   <%= for {label, input, error} <- inputs, input do %>
-    .torch-form-group
+    .lit-form-group
       <%= label %>
       <%= input %>
       <%= error %>
   <% end %>
-    .torch-submit-form
-      = submit "Submit", class: "torch-submit-button"
+    .lit-submit-form
+      = submit "Submit", class: "lit-submit-button"
 

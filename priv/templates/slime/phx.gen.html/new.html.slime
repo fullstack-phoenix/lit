@@ -1,8 +1,8 @@
-section#torch-toolbar
-  .torch-container
-    = link "Cancel", to: Routes.<%= schema.route_helper %>_path(@conn, :index), class: "torch-button"
-section#torch-header-and-content
-  .torch-container
+section#lit-toolbar
+  .lit-container
+    = link "Cancel", to: Routes.<%= schema.route_helper %>_path(@conn, :index), class: "lit-button"
+section#lit-header-and-content
+  .lit-container
     .header
       h3 New <%= String.capitalize(schema.human_singular) %>
     = render "form.html", Map.put(assigns, :action, Routes.<%= schema.route_helper %>_path(@conn, :create))

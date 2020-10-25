@@ -1,25 +1,25 @@
 html
   head
     title Admin
-    / Uncomment to just use the bare bones torch styles rather than the theme
-    /link rel="stylesheet" href="#{Routes.static_path(@conn, "/torch/base.css")}"
-    link rel="stylesheet" href="#{Routes.static_path(@conn, "/torch/theme.css")}"
+    / Uncomment to just use the bare bones lit styles rather than the theme
+    /link rel="stylesheet" href="#{Routes.static_path(@conn, "/lit/base.css")}"
+    link rel="stylesheet" href="#{Routes.static_path(@conn, "/lit/theme.css")}"
 
-  body class="#{Torch.PageView.body_classes(@conn)}"
+  body class="#{Lit.PageView.body_classes(@conn)}"
     header
-      section id="torch-account-info"
-        div class="torch-container"
+      section id="lit-account-info"
+        div class="lit-container"
           a href="/" user@example.com
           a href="/" Logout
 
-      section id="torch-nav"
-        div class="torch-container"
-          div class="torch-logo"
+      section id="lit-nav"
+        div class="lit-container"
+          div class="lit-logo"
             a href="/"
-              h3 Torch
-          nav class="torch-nav"
+              h3 Lit
+          nav class="lit-nav"
             / nav links here
 
-    = Torch.FlashView.render("_flash_messages.html", assigns)
+    = Lit.FlashView.render("_flash_messages.html", assigns)
     = @inner_content
-    script src="#{Routes.static_path(@conn, "/torch/torch.js")}"
+    script src="#{Routes.static_path(@conn, "/lit/lit.js")}"

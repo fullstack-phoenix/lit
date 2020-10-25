@@ -1,0 +1,26 @@
+<% add_class = fn string, class -> String.replace(string, " %", ~s(, class: "#{class}" %)) end
+%><%%= f = form_for @changeset, "#",
+  id: "<%= schema.singular %>-form",
+  class: "block",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+<%= for {label, input, error} <- inputs, input do %><%= if String.match?(input, ~r/checkbox/) do %>
+  <div class="mb-6">
+    <div class="flex items-center">
+      <%= add_class.(input, "form-checkbox") %>
+      <%= add_class.(label, "ml-2 cursor-pointer") %>
+    </div>
+    <%= error %>
+  </div>
+<% else %>
+  <div class="mb-6">
+    <%= label %>
+    <%= add_class.(input, "focus:border-blue-400 focus:ring-2 focus:ring-blue-200 focus:outline-none w-full text-base placeholder-gray-400 border border-gray-300 rounded py-1.5 px-3") %>
+    <%= error %>
+  </div>
+<% end %><% end %>
+  <div class="mt-8 mb-2">
+    <%%= submit "Save", phx_disable_with: "Saving...", class: "px-4 py-2 text-sm border border-transparent rounded bg-yellow-600 text-white hover:bg-yellow-500 focus:outline-none focus:border-yellow-600 focus:shadow-outline-yellow active:bg-yellow-600 transition duration-150 ease-in-out inline-flex items-center" %>
+  </div>
+</form>

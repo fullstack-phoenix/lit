@@ -25,7 +25,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :torch,
+config :lit,
   otp_app: :phx1_4,
   template_format: "eex"
 

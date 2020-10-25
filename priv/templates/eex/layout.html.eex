@@ -1,37 +1,29 @@
 <html>
   <head>
     <title>Admin</title>
-    <!-- Uncomment to just use the bare bones torch styles rather than the theme -->
-    <!--<link rel="stylesheet" href="<%= Routes.static_path(@conn, "/torch/base.css") %>">-->
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/torch/theme.css") %>">
+    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
 
-  <body class="<%= Torch.PageView.body_classes(@conn) %>">
-    <header>
-      <section id="torch-account-info">
-        <div class="torch-container">
-          <a href="/">user@example.com</a>
-          <a href="/">Logout</a>
-        </div>
-      </section>
-
-      <section id="torch-nav">
-        <div class="torch-container">
-          <div class="torch-logo">
-            <a href="/">
-              <h3>Torch</h3>
-            </a>
-          </div>
-          <nav class="torch-nav">
+  <body class="bg-gray-200 <%= Lit.PageView.body_classes(@conn) %>">
+    <header class="z-30 w-full px-2 py-2 bg-white shadow sm:px-4">
+      <div class="container flex items-center justify-between mx-auto">
+        <div class="flex items-center space-x-3">
+          <a href="/" title="Admin Page" class="flex items-center mr-2 text-2xl font-bold text-gray-900">
+            <span class="text-primary">Lit</span>Admin
+          </a>
+          <div class="hidden md:inline-flex space-x-1">
             <!-- nav links here -->
-          </nav>
+          </div>
         </div>
-      </section>
+        <div class="flex items-center space-x-3">
+          <a href="/" class="btn btn-sm btn-icon btn-link">user@example.com</a>
+          <a href="/" class="btn btn-sm btn-icon btn-link">Logout</a>
+        </div>
+      </div>
     </header>
 
-    <%= Torch.FlashView.render("_flash_messages.html", assigns) %>
+    <%= Lit.FlashView.render("_flash_messages.html", assigns) %>
     <%= render @view_module, @view_template, assigns %>
-    <script src="<%= Routes.static_path(@conn, "/torch/torch.js") %>"></script>
   </body>
 </html>
-

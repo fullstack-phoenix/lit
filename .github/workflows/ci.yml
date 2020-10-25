@@ -1,4 +1,4 @@
-name: Torch CI
+name: Lit CI
 
 on:
   pull_request:

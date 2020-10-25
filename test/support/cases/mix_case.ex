@@ -1,11 +1,11 @@
-defmodule Torch.MixCase do
+defmodule Lit.MixCase do
   @moduledoc false
 
   use ExUnit.CaseTemplate
 
   using do
     quote do
-      import Torch.MixCase
+      import Lit.MixCase
     end
   end
 
@@ -19,7 +19,7 @@ defmodule Torch.MixCase do
                      Template format is invalid: nil. Either configure it as
                      shown below or pass it via the `--format` option.
 
-                         config :torch,
+                         config :lit,
                            template_format: :slime
 
                          # Alternatively
@@ -44,7 +44,7 @@ defmodule Torch.MixCase do
                      You need to specify an OTP app to generate files within. Either
                      configure it as shown below or pass it in via the `--app` option.
 
-                         config :torch,
+                         config :lit,
                            otp_app: :my_app
 
                          # Alternatively

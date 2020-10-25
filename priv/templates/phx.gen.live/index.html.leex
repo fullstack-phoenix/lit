@@ -1,0 +1,91 @@
+<%%= if @live_action in [:new, :edit] do %>
+  <%%= live_modal @socket, <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>Live.FormComponent,
+    id: @<%= schema.singular %>.id || :new,
+    title: @page_title,
+    action: @live_action,
+    <%= schema.singular %>: @<%= schema.singular %>,
+    return_to: Routes.<%= schema.route_helper %>_index_path(@socket, :index) %>
+<%% end %>
+
+<div class="flex flex-wrap">
+  <div class="w-full md:w-2/3">
+    <div class="bg-white rounded shadow">
+      <div class="flex items-center justify-between px-4 py-3 border-b">
+        <h5 class="text-lg font-medium text-gray-700">
+          Listing <%= schema.human_plural %>
+        </h5>
+        <%%= live_patch to: Routes.<%= schema.route_helper %>_index_path(@socket, :new), class: "px-2 py-1 text-xs border rounded bg-gray-200 text-gray-700 hover:bg-gray-100 focus:outline-none focus:border-gray-200 focus:shadow-outline-gray active:bg-gray-200 transition duration-150 ease-in-out inline-flex items-center" do %>
+          <svg fill="currentColor" width="24" height="24" viewBox="0 0 20 20" stroke-width="2"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+        <%% end %>
+      </div>
+      <div class="px-4 py-3 text-gray-600 prose max-w-full">
+        <table class="w-full">
+          <thead class="text-left">
+            <tr>
+<%= for {k, _} <- schema.attrs do %>              <th class="py-2 text-sm text-gray-700"><%= Phoenix.Naming.humanize(Atom.to_string(k)) %></th>
+<% end %>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="<%= schema.plural %>">
+<%%= for <%= schema.singular %> <- @<%= schema.plural %> do %>
+            <tr id="<%= schema.singular %>-<%%= <%= schema.singular %>.id %>" class="text-sm border-t border-gray-100">
+<%= for {k, _} <- schema.attrs do %>              <td class="py-3"><%%= <%= schema.singular %>.<%= k %> %></td>
+<% end %>
+              <td class="py-3 text-right">
+                <span><%%= live_redirect "Show", to: Routes.<%= schema.route_helper %>_show_path(@socket, :show, <%= schema.singular %>), class: "text-blue-700 active:text-blue-700 hover:text-blue-400 focus:outline-none" %></span>
+                <span><%%= live_patch "Edit", to: Routes.<%= schema.route_helper %>_index_path(@socket, :edit, <%= schema.singular %>), class: "text-blue-700 active:text-blue-700 hover:text-blue-400 focus:outline-none" %></span>
+                <span><%%= link "Delete", to: "#", phx_click: "delete", phx_value_id: <%= schema.singular %>.id, data: [confirm: "Are you sure?"], class: "text-blue-700 active:text-blue-700 hover:text-blue-400 focus:outline-none" %></span>
+              </td>
+            </tr>
+<%% end %>
+          </tbody>
+        </table>
+
+        <%%= live_component @socket, <%= inspect context.web_module %>.Live.Admin.Common.PaginationComponent,
+          page_number: assigns[:page_number], total_pages: assigns[:total_pages] %>
+      </div>
+    </div>
+  </div>
+  <div class="w-full pt-4 md:pt-0 md:pl-4 md:w-1/3">
+    <div class="bg-white rounded shadow">
+      <div class="flex items-center justify-between px-4 py-3 border-b">
+        <h5 class="text-lg font-medium text-gray-700">
+          Filter <%= schema.human_plural %>
+        </h5>
+      </div>
+      <div class="max-w-full px-4 py-3 text-gray-600 prose">
+        <%%= form_tag "#", method: :get, id: "lit-filters-form" do %>
+<%= for {key, type} <- schema.attrs, type in [:string, :text] do %>          <div class="mb-4">
+            <label class="block text-sm mb-1"><%= Phoenix.Naming.humanize(Atom.to_string(key)) %></label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <%%= filter_select(:<%= schema.singular %>, :<%= key %>, @params) %>
+              <%%= filter_string_input(:<%= schema.singular %>, :<%= key %>, @params) %>
+            </div>
+          </div>
+<% end %><%= for {key, type} <- schema.attrs, type in [:boolean] do %>          <div class="mb-4">
+            <label class="flex items-center">
+              <%%= filter_boolean_input(:<%= schema.singular %>, :<%= key %>, @params) %>
+              <span class="ml-2 cursor-pointer"><%= Phoenix.Naming.humanize(Atom.to_string(key)) %></span>
+            </label>
+          </div>
+<% end %><%= for {key, type} <- schema.attrs, type in [:date, :datetime, :utc_datetime, :naive_datetime] do %>          <div class="mb-4">
+            <label class="block text-sm mb-1"><%= Phoenix.Naming.humanize(Atom.to_string(key)) %></label>
+            <%%= filter_date_input(:<%= schema.singular %>, :<%= key %>, @params) %>
+          </div>
+<% end %><%= for {key, type} <- schema.attrs, type in [:number, :integer] do %>          <div class="mb-4">
+            <label class="block text-sm mb-1"><%= Phoenix.Naming.humanize(Atom.to_string(key)) %></label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <%%= number_filter_select(:<%= schema.singular %>, :<%= key %>, @params) %>
+              <%%= filter_number_input(:<%= schema.singular %>, :<%= key %>, @params) %>
+            </div>
+          </div>
+<% end %>          <div>
+            <button type="submit" class="inline-flex items-center px-4 py-2 text-sm text-white bg-yellow-600 border border-transparent rounded hover:bg-yellow-500 focus:outline-none focus:border-yellow-600 focus:shadow-outline-yellow active:bg-yellow-600 transition duration-150 ease-in-out">Search</button>
+            <%%= link "Clear Filters", to: Routes.<%= schema.route_helper %>_index_path(@socket, :index), class: "px-4 py-2 text-sm font-medium text-blue-700 active:text-blue-700 hover:text-blue-400 focus:outline-none focus:shadow-outline-white transition duration-150 ease-in-out inline-flex items-center ml-1" %>
+          </div>
+        <%% end %>
+      </div>
+    </div>
+  </div>
+</div>
