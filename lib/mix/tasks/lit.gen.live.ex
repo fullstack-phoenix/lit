@@ -17,9 +17,9 @@ defmodule Mix.Tasks.Lit.Gen.Live do
       Mix.raise("mix lit.gen.live can only be run inside an application directory")
     end
 
-    IO.inspect(args) # ["Posts", "Post", "posts", "--web", "Admin", "title"]
+    # IO.inspect(args) # ["Posts", "Post", "posts", "--web", "Admin", "title"]
 
-    %{format: format} = Mix.Lit.parse_config!("lit.gen.live", args)
+    %{default_web_namespace: _default_web_namespace} = Mix.Lit.parse_config!("lit.gen.live", args)
 
     Mix.Lit.ensure_phoenix_is_loaded!("lit.gen.live")
 
@@ -28,7 +28,7 @@ defmodule Mix.Tasks.Lit.Gen.Live do
 
     # Inject the lit templates for the generator into the priv/
     # directory so they will be picked up by the Phoenix generator
-    Enum.each(@commands, &Mix.Lit.inject_templates(&1, format))
+    Enum.each(@commands, &Mix.Lit.inject_templates(&1, "eex"))
 
     # Run the Phoenix generator
     Mix.Task.run("phx.gen.live", args)
@@ -40,24 +40,22 @@ defmodule Mix.Tasks.Lit.Gen.Live do
     # Restore the projects existing templates if present
     Enum.each(@commands, &Mix.Lit.restore_project_templates/1)
 
-    # Mix.shell().info("""
-    # Ensure the following is added to your endpoint.ex:
-    #
-    #     plug(
-    #       Plug.Static,
-    #       at: "/lit",
-    #       from: {:lit, "priv/static"},
-    #       gzip: true,
-    #       cache_control_for_etags: "public, max-age=86400",
-    #       headers: [{"access-control-allow-origin", "*"}]
-    #     )
-    # """)
+    {context, schema} = Mix.Tasks.Phx.Gen.Context.build(args)
+
+    Mix.shell().info("""
+    Ensure the following is added to your router.ex:
+
+        pipeline :admin_layout do
+          plug :put_root_layout, {#{context.web_module}.#{schema.web_namespace}.LayoutView, :lit}
+        end
+    """)
 
     Mix.shell().info("""
     Also don't forget to add a link to layouts/lit.html.
 
-        <nav class="lit-nav">
-          <!-- nav links here -->
+        <nav id="nav-links">
+          <!-- ADD NAVIGATION LINKS HERE -->
+          <a class="py-1 my-1 text-sm font-medium text-gray-700 md:py-0 hover:text-blue-400 focus:outline-none md:mx-3 md:my-0" href="#">Home</a>
         </nav>
     """)
   end

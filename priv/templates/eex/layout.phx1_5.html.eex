@@ -12,7 +12,7 @@
   <body class="flex flex-col h-full pt-32 bg-gray-100">
     <header class="fixed top-0 left-0 right-0 z-30 shadow">
       <div class="text-white bg-yellow-600">
-        <div class="container relative flex justify-end w-full max-w-5xl px-4 py-1 mx-auto sm:px-0">
+        <div class="container relative flex justify-end w-full max-w-6xl px-4 py-2 mx-auto lg:px-0">
           <div class="">
             <div x-data="{ open: false }" @keydown.escape="open = false" @click.away="open = false" class="relative inline-block text-left">
               <div>
@@ -21,18 +21,14 @@
                 </button>
               </div>
 
-              <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-56 mt-2 shadow-lg origin-top-right rounded-md" style="display: none;">
-                <div class="bg-white rounded-md shadow-xs">
-                  <div class="py-1" role="menu">
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 leading-5 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Account settings</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 leading-5 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Support</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 leading-5 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">License</a>
-                    <form method="POST" action="#">
-                      <button type="submit" class="block w-full px-4 py-2 text-sm text-left text-gray-700 leading-5 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
-                        Sign out
-                      </button>
-                    </form>
-                  </div>
+              <div x-show="open" class="absolute right-0 w-56 mt-2 shadow-lg origin-top-right rounded-md">
+                <div class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white shadow-xl rounded-md">
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 capitalize hover:bg-blue-500 hover:text-white">
+                    Settings
+                  </a>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 capitalize hover:bg-blue-500 hover:text-white">
+                    Sign Out
+                  </a>
                 </div>
               </div>
             </div>
@@ -40,62 +36,29 @@
         </div>
       </div>
       <div class="bg-white">
-        <div class="container flex items-center justify-start w-full max-w-5xl px-4 mx-auto sm:px-0">
-          <a href="#" class="text-2xl font-extrabold text-orange-600">Lit<span class="text-gray-800">Admin</span></a>
+        <div x-data="{ open: false }" class="container w-full max-w-6xl px-4 py-2 mx-auto md:justify-start md:flex md:items-center lg:px-0">
+          <div class="flex items-center justify-between">
+            <a href="#" class="text-2xl font-extrabold text-orange-600">Lit<span class="text-gray-800">Admin</span></a>
 
-          <div class="py-3 ml-8 space-y-2" role="menu">
-            <!-- MENU ITEMS FOR DESKTOP SCREENS -->
-            <a href="#" class="px-2 py-3 font-semibold text-gray-800 border-b-2 border-orange-600">Posts</a>
-            <a href="#" class="px-2 py-3 font-semibold text-gray-600 border-b border-transparent">Posts</a>
-            <a href="#" class="px-2 py-3 font-semibold text-gray-600 border-b border-transparent">Posts</a>
-          </div>
-
-          <div class="inline-flex md:hidden" x-data="{ open: false }">
-            <button class="flex-none px-2 btn btn-link btn-sm" @click="open = true">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-                >
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-              <span class="sr-only">Open Menu</span>
-            </button>
-            <div class="absolute top-0 left-0 right-0 z-50 flex flex-col p-2 pb-4 m-2 bg-white rounded shadow space-y-3" x-show.transition="open" @click.away="open = false" x-cloak>
-              <button class="self-end flex-none px-2 ml-2 btn btn-link btn-icon" @click="open = false">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                  >
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
+            <div class="flex md:hidden">
+              <button @click="open = !open" type="button" class="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600">
+                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                  <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
                 </svg>
-                <span class="sr-only">Close Menu</span>
               </button>
-              <%= link "Home", to: Routes.page_path(@conn, :index), class: "btn btn-link w-full" %>
-              <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-                <%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home), class: "btn btn-link w-full" %>
-              <% end %>
             </div>
           </div>
 
+          <div :class="{ 'block': open === true, 'hidden': open !== true }" class="items-center md:flex">
+            <nav id="nav-links" class="flex flex-col mt-4 md:mt-0 md:flex-row md:mx-6">
+              <!-- ADD NAVIGATION LINKS HERE -->
+              <a class="py-1 my-1 text-sm font-medium text-gray-700 md:py-0 hover:text-blue-400 focus:outline-none md:mx-3 md:my-0" href="#">Home</a>
+
+              <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+                <%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home), class: "py-1 my-1 text-sm font-medium text-gray-700 md:py-0 hover:text-blue-400 focus:outline-none md:mx-3 md:my-0" %>
+              <% end %>
+            </nav>
+          </div>
         </div>
       </div>
     </header>

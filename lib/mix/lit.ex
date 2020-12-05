@@ -4,9 +4,10 @@ defmodule Mix.Lit do
   alias Lit.Config
 
   def parse_config!(task, args) do
-    {opts, _, _} = OptionParser.parse(args, switches: [format: :string, app: :string])
+    {opts, _, _} = OptionParser.parse(args, switches: [default_web_namespace: :string, app: :string])
 
-    format = convert_format(opts[:format] || Config.template_format())
+    # format = convert_format(opts[:format] || Config.template_format())
+    # default_web_namespace = opts[:default_web_namespace] || "Admin"
     otp_app = opts[:app] || Config.otp_app()
 
     unless otp_app do
@@ -21,23 +22,23 @@ defmodule Mix.Lit do
           mix #{task} --app my_app
       """)
     end
+    #
+    # unless format in ["eex", "slime"] do
+    #   Mix.raise("""
+    #   Template format is invalid: #{inspect(format)}. Either configure it as
+    #   shown below or pass it via the `--format` option.
+    #
+    #       config :lit,
+    #         template_format: :slime
+    #
+    #       # Alternatively
+    #       mix #{task} --format slime
+    #
+    #   Supported formats: eex, slime
+    #   """)
+    # end
 
-    unless format in ["eex", "slime"] do
-      Mix.raise("""
-      Template format is invalid: #{inspect(format)}. Either configure it as
-      shown below or pass it via the `--format` option.
-
-          config :lit,
-            template_format: :slime
-
-          # Alternatively
-          mix #{task} --format slime
-
-      Supported formats: eex, slime
-      """)
-    end
-
-    %{otp_app: otp_app, format: format}
+    %{otp_app: otp_app, default_web_namespace: "Admin"}
   end
 
   def ensure_phoenix_is_loaded!(mix_task \\ "task") do
@@ -74,13 +75,13 @@ defmodule Mix.Lit do
   This is why this function invocation of `copy_from/2` changes the template file extensions
   to `.html.eex` reglardess of the original template format type.
   """
-  def inject_templates("phx.gen.html", format) do
-    copy_from("priv/templates/#{format}/phx.gen.html", [
-      {"edit.html.#{format}", "priv/templates/phx.gen.html/edit.html.eex"},
-      {"form.html.#{format}", "priv/templates/phx.gen.html/form.html.eex"},
-      {"index.html.#{format}", "priv/templates/phx.gen.html/index.html.eex"},
-      {"new.html.#{format}", "priv/templates/phx.gen.html/new.html.eex"},
-      {"show.html.#{format}", "priv/templates/phx.gen.html/show.html.eex"}
+  def inject_templates("phx.gen.html", _format) do
+    copy_from("priv/templates/eex/phx.gen.html", [
+      {"edit.html.eex", "priv/templates/phx.gen.html/edit.html.eex"},
+      {"form.html.eex", "priv/templates/phx.gen.html/form.html.eex"},
+      {"index.html.eex", "priv/templates/phx.gen.html/index.html.eex"},
+      {"new.html.eex", "priv/templates/phx.gen.html/new.html.eex"},
+      {"show.html.eex", "priv/templates/phx.gen.html/show.html.eex"}
     ])
 
     copy_from("priv/templates/common/phx.gen.html", [
@@ -125,7 +126,7 @@ defmodule Mix.Lit do
   def remove_templates(template_dir) do
     File.rm_rf("priv/templates/#{template_dir}/")
   end
-
-  defp convert_format("slim"), do: "slime"
-  defp convert_format(format), do: format
+  #
+  # defp convert_format("slim"), do: "slime"
+  # defp convert_format(format), do: format
 end

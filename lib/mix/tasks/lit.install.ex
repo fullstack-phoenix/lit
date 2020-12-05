@@ -25,14 +25,14 @@ defmodule Mix.Tasks.Lit.Install do
       Mix.raise("mix lit.install can only be run inside an application directory")
     end
 
-    %{format: format, otp_app: otp_app} = Mix.Lit.parse_config!("lit.install", args)
+    %{default_web_namespace: _default_web_namespace, otp_app: otp_app} = Mix.Lit.parse_config!("lit.install", args)
 
     Mix.Lit.ensure_phoenix_is_loaded!("lit.install")
 
     phoenix_version = Application.spec(:phoenix, :vsn)
 
-    Mix.Lit.copy_from("priv/templates/#{format}", [
-      {template_file(phoenix_version, format),
+    Mix.Lit.copy_from("priv/templates/eex", [
+      {template_file(phoenix_version, "eex"),
        "lib/#{otp_app}_web/templates/admin/layout/lit.html.leex"}
     ])
 
@@ -58,6 +58,8 @@ defmodule Mix.Tasks.Lit.Install do
 
     files = [
       {:eex, "pagination_component.ex", Path.join([web_prefix, "live", "admin", "common", "pagination_component.ex"])},
+      {:eex, "live.html.leex", Path.join([web_prefix, "templates", "admin", "layout", "live.html.leex"])},
+      {:eex, "layout_view.ex", Path.join([web_prefix, "views", "admin", "layout_view.ex"])},
     ]
 
     Mix.Phoenix.copy_from([:lit], "priv/templates/lit.install", binding, files)
