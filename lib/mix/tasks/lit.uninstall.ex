@@ -12,10 +12,10 @@ defmodule Mix.Tasks.Lit.Uninstall do
       Mix.raise("mix lit.uninstall can only be run inside an application directory")
     end
 
-    %{format: format, otp_app: otp_app} = Mix.Lit.parse_config!("lit.uninstall", args)
+    %{default_web_namespace: default_web_namespace, otp_app: otp_app} = Mix.Lit.parse_config!("lit.uninstall", args)
 
     paths = [
-      "lib/#{otp_app}_web/templates/layout/lit.html.#{format}"
+      "lib/#{otp_app}_web/templates/#{default_web_namespace}/layout/lit.html.leex"
     ]
 
     Enum.each(paths, &File.rm/1)
