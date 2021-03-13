@@ -5,7 +5,7 @@
 
 # Lit
 
-Lit is an admin generator for Phoenix LiveView and Talwind apps. It creates custom templates and relies
+Lit is an admin generator for Phoenix LiveView and Tailwind apps. It creates custom templates and relies
 on the Phoenix live generator under the hood. The project is a fork from [Torch](https://github.com/mojotech/torch)
 
 ![image](https://res.cloudinary.com/dwvh1fhcg/image/upload/v1606940594/test/lit_admin.png.png)
@@ -38,12 +38,12 @@ Now you're ready to start generating your admin! :tada:
 
 ## Usage
 
-Lit uses Phoenix generators under the hood. Lit injects it's own custom templates
+Lit uses Phoenix generators under the hood. Lit injects its own custom templates
 into your `priv/static` directory, then runs the `mix phx.gen.live` task with the options
 you passed in. Finally, it uninstalls the custom templates so they don't interfere with
 running the plain Phoenix generators.
 
-In light of that fact, the `lit.gen.live` task takes all the same arguments as the `phx.gen.live`,
+In light of that fact, the `lit.gen.live` task takes all the same arguments as the `phx.gen.live`
 but does some extra configuration on either end. Checkout `mix help phx.gen.html` for more details
 about the supported options and format.
 
@@ -144,4 +144,4 @@ the above `eex` to work.
 
 ## Styling
 
-Lit depends on that you use Tailwind in your application. The generated codes has comes with utilitu classes.
+Lit depends on you using Tailwind in your application. The generated codes comes with utility classes.
